@@ -25,6 +25,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
         [SerializeField]
         GameObject placedPrefab;
         Vector3 anchorPos;
+        bool placed = false;
 
         void Awake()
         {
@@ -35,26 +36,36 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         void Update()
         {
-            if(isTrackerPlaced())
+            if (isTrackerPlaced())
             {
-                if(Input.touchCount > 0)
-                    if(Input.GetTouch(0).phase == TouchPhase.Began)
+                if (Input.touchCount > 0)
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
+                    {
                         Instantiate(placedPrefab, anchorPos, Quaternion.identity);
+                        placed = true;
+                        m_RaycastManager.subsystem.Stop();
+                        Destroy(tracker);
+                    }
             }
         }
 
         bool isTrackerPlaced()
         {
-            if (m_RaycastManager.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), s_Hits, TrackableType.Planes))
+            if (!placed)
             {
-                // Raycast hits are sorted by distance, so the first one
-                // will be the closest hit.
-                var hitPose = s_Hits[0].pose;
+                if (m_RaycastManager.Raycast(new Vector2(Screen.width / 2, Screen.height / 2), s_Hits, TrackableType.Planes))
                 {
-                    anchorPos = hitPose.position;
-                    tracker.transform.position = anchorPos;
+                    // Raycast hits are sorted by distance, so the first one
+                    // will be the closest hit.
+                    var hitPose = s_Hits[0].pose;
+                    {
+                        anchorPos = hitPose.position;
+                        tracker.transform.position = anchorPos;
+                    }
+                    return true;
                 }
-                return true;
+                else
+                    return false;
             }
             else
                 return false;
