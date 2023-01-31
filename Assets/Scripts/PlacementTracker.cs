@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -23,7 +24,9 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         ARRaycastManager m_RaycastManager;
         [SerializeField]
-        GameObject placedPrefab;
+        GameObject lake;
+        [SerializeField]
+        GameObject city;
         Vector3 anchorPos;
         bool placed = false;
 
@@ -32,6 +35,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
             m_RaycastManager = GetComponent<ARRaycastManager>();
             tracker = Instantiate(Resources.Load<GameObject>("PlacementTracker"));
             tracker.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            tracker.SetActive(false);
         }
 
         void Update()
@@ -41,7 +45,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 if (Input.touchCount > 0)
                     if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
-                        Instantiate(placedPrefab, anchorPos, Quaternion.identity);
+                        if (PlayerPrefs.GetInt("city") == 0)
+                            Instantiate(lake, new Vector3(0, 0, anchorPos.z), Quaternion.identity);
+                        else
+                            Instantiate(city, new Vector3(0, 0, anchorPos.z), Quaternion.identity);
                         placed = true;
                         m_RaycastManager.subsystem.Stop();
                         Destroy(tracker);
@@ -60,6 +67,8 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     var hitPose = s_Hits[0].pose;
                     {
                         anchorPos = hitPose.position;
+                        if (!tracker.activeInHierarchy)
+                            tracker.SetActive(true);
                         tracker.transform.position = anchorPos;
                     }
                     return true;

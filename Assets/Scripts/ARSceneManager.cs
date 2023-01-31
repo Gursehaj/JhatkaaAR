@@ -8,6 +8,11 @@ using UnityEngine.Events;
 public class ARSceneManager : MonoBehaviour
 {
     public static ARSceneManager instance;
+    [SerializeField]
+    GameObject MainPanel;
+    [SerializeField]
+    GameObject InstructionPanel;
+    
     private void OnEnable()
     {
         instance = this;
@@ -17,6 +22,8 @@ public class ARSceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MainPanel.SetActive(true);
+        InstructionPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,10 +32,16 @@ public class ARSceneManager : MonoBehaviour
         
     }
 
-    public void LoadNewARScene(int index)
+    public void SetScene(int index)
+    {
+        PlayerPrefs.SetInt("city", index);
+        MainPanel.SetActive(false);
+        InstructionPanel.SetActive(true);
+    }
+
+    public void LoadARScene()
     {
         SceneManager.LoadScene(1);
-        PlayerPrefs.SetInt("city", index);
     }
 
     public void loadMainMenu()

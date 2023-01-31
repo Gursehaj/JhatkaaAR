@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: c18b2b4f961863a4195e56bf41c382e0, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.58681667, g: 0.58571917, b: 0.57958096, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -169,7 +169,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 20
+  far clip plane: 2000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -342,10 +342,7 @@ GameObject:
   - component: {fileID: 782719144}
   - component: {fileID: 782719143}
   - component: {fileID: 782719142}
-  - component: {fileID: 782719141}
   - component: {fileID: 782719140}
-  - component: {fileID: 782719139}
-  - component: {fileID: 782719145}
   - component: {fileID: 782719146}
   m_Layer: 0
   m_Name: AR Session Origin
@@ -354,19 +351,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &782719139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782719138}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e53b8b51cbef04ac4820394e356c7b69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PlacedPrefab: {fileID: 7643505305806198387, guid: c9f8e897b200244e3a1760e5c5c6c6c3, type: 3}
 --- !u!114 &782719140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,19 +364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaycastPrefab: {fileID: 0}
---- !u!114 &782719141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782719138}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PointCloudPrefab: {fileID: 6125637172459757845, guid: 4171288b512dd4aeeaed4021eb685616, type: 3}
 --- !u!114 &782719142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,23 +407,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &782719145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782719138}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b15f82cc229284894964d2d30806969d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HumanSegmentationStencilMode: 1
-  m_HumanSegmentationDepthMode: 1
-  m_EnvironmentDepthMode: 1
-  m_EnvironmentDepthTemporalSmoothing: 1
-  m_OcclusionPreferenceMode: 0
 --- !u!114 &782719146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,7 +419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07eaae1efc134d198622357aa277055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placedPrefab: {fileID: 75919648568105726, guid: e0a5c568368ce4687a3ab005ad1171c4, type: 3}
+  lake: {fileID: 7968887820230499200, guid: 691aa067618d2b74c9f2fc6c6e3e7089, type: 3}
+  city: {fileID: 1666969254595502338, guid: bbb51d76f8892604e8b4a20dbe50ec60, type: 3}
 --- !u!1 &1008743098
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,6 +552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
